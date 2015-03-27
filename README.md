@@ -9,17 +9,17 @@ Getting Started
 ----
 Create Your UI class by extending the UserInterface class:
 
-var MyUserInterface = UserInterface.extend({
+```var MyUserInterface = UserInterface.extend({
 
-});
+});```
 
 Include the Library and Your code in the html file head
 
 Start the application:
-var gui;
+```var gui;
 $(function(){
 	gui = new MyUserInterface();
-});
+});```
 
 Build
 --------
