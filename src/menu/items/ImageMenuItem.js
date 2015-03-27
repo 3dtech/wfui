@@ -1,4 +1,4 @@
-/** 
+/**
   Override MenuItem to provide different items for Menu. By default MenuItem is <div>{label}</div> and
   calls a callback method.
 */
@@ -9,23 +9,17 @@ var ImageMenuItem = MenuItem.extend({
 		this.textElement = false;
 		this._super(label);
 	},
-	
+
 	getInnerElement: function(){
 		return this.innerElement;
 	},
-	
-	loadImage: function(imageId){
-		this.imageId = imageId;
-		if(this.imageId > 0){
-			Logistics.getImage(WayfinderAPI.getURL("images", "thumbnail", [this.imageId]), ClassCallback(this, function(data){
-				this.iconElement.css("background-image", "url('"+data.src+"')");
-				this.element.addClass("hasIcon");
-			}));
-		}
+
+	setBackground: function(url){
+		this.iconElement.css("background-image", "url('"+url+"')");
 	},
-	
+
 	createElement: function(){
-		this.element = $("<div class='item'></div>");
+		this.element = $("<div class='item imageitem'></div>");
 		this.iconElement = $("<div class='icon'></div>");
 		this.textElement = $("<div class='label'>"+this.label+"</div>");
 		this.element.append(this.iconElement);

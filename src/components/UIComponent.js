@@ -3,8 +3,9 @@
 
 var UIComponent = Class.extend({
 	init: function(element) {
-		this.element=element;
-		this.parent=null;
+		this.element = element;
+		this.parent = null;
+		this.active = false;
 	},
 
 	/** Hide component */
@@ -43,6 +44,7 @@ var UIComponent = Class.extend({
 	/** Activates element */
 	activate: function() {
 		this.element.addClass('active');
+		this.active = true;
 		this.onActivate(this);
 	},
 
@@ -52,6 +54,7 @@ var UIComponent = Class.extend({
 	/** Deactivate Component */
 	deactivate: function() {
 		this.element.removeClass('active');
+		this.active = false;
 		this.onDeactivate();
 	},
 
@@ -71,7 +74,15 @@ var UIComponent = Class.extend({
 		this.element.addClass(name);
 	},
 
+	removeClass: function(name){
+		this.element.removeClass(name);
+	},
+
 	addAttribute: function(key, value){
 		this.element.attr(key, value);
+	},
+
+	isActive: function(){
+		return this.active;
 	}
 });

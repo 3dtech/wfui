@@ -23,6 +23,7 @@ var DragScroll=Class.extend({
 
 		this.viewElement.addClass("scrollable-view");
 		this.contentElement.addClass("scrollable-content");
+		this.setCSS();
 
 		this.mouseDelta=vec2.create();	// Mouse movement delta
 		this.smoothDistance = null;
@@ -36,38 +37,61 @@ var DragScroll=Class.extend({
 		this.positionClassNames = "";
 
 		if(this.getOption("swapContainers")){
-			this.view=new View(vec2.fromValues(this.viewElement.width(), this.viewElement.height()), vec2.fromValues(this.contentElement.width(), this.contentElement.height()));
+			this.view = new View(vec2.fromValues(this.viewElement.width(), this.viewElement.height()), vec2.fromValues(this.contentElement.width(), this.contentElement.height()));
 		}
 		else {
-			this.view=new View(vec2.fromValues(this.contentElement.width(), this.contentElement.height()), vec2.fromValues(this.viewElement.width(), this.viewElement.height()));
+			this.view = new View(vec2.fromValues(this.contentElement.width(), this.contentElement.height()), vec2.fromValues(this.viewElement.width(), this.viewElement.height()));
 		}
 
 		var me=this;
 
 		$(window).resize(function() { me.resize(); });
 
+		var hammer = new Hammer(this.viewElement[0]);
+		hammer.get('pan').set({ threshold: 0, pointers: 0 });
+
 		// Attach touch events
-		this.viewElement.hammer().on("dragstart", function(event) {
-			if(event && event.gesture){
-				event.gesture.preventDefault();
-				event.gesture.stopPropagation();
+		hammer.on("panstart", function(event) {
+			if(event){
+				event.preventDefault();
 			}
 			me.onStartDrag();
 			me.stop();
 		});
 
-		this.viewElement.hammer().on("tap", function(event) {
-			event.gesture.preventDefault();
+		hammer.on("tap", function(event) {
+			event.preventDefault();
 		});
 
-		this.viewElement.hammer().on("drag", ClassCallback(this, this.onDrag));
+		hammer.on("panmove", ClassCallback(this, this.onDrag));
 
-		this.viewElement.hammer().on("dragend", ClassCallback(this, this.onEndDrag));
+		hammer.on("panend", ClassCallback(this, this.onEndDrag));
 
 		this.viewElement.bind("mousewheel", function(event, delta) {
 			me.scroll(vec2.fromValues(0, -me.getOption("wheelSpeed")*delta));
 		});
 	},
+
+	setCSS: function(){
+		this.contentElement.css("position", "relative");
+		this.contentElement.css("overflow", "auto");
+
+		this.viewElement.css("overflow", "hidden");
+		this.viewElement.css("position", "relative");
+		this.viewElement.css("height", "inherit");
+
+	},
+
+	/**
+.scrollable-content:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+	*/
 
 	/**
 	*	Combines default options with given options
@@ -108,22 +132,22 @@ var DragScroll=Class.extend({
 	},
 
 	onStartDrag: function() {
-
+		this.resize();
 	},
 
 	onDrag: function(event) {
+
 		//check if the event is a touch event and the target isn't a scrollbar
 		//TODO move scrollbar out of scrollable-view
-		if(!(event && event.gesture && event.gesture.target.className.search("bar") == -1)){
+		if(!(event && event.target.className.search("bar") == -1)){
 			return;
 		}
 
-		event.gesture.preventDefault();
-		event.gesture.stopPropagation();
+		event.preventDefault();
 		if(!this.scrolling){
 			this.scrolling = true;
 
-			var v = vec2.fromValues(event.gesture.deltaX, event.gesture.deltaY);
+			var v = vec2.fromValues(event.deltaX, event.deltaY);
 
 			if(this.getOption("reverse")){
 				this.scroll(vec2.subtract(vec2.create(), this.mouseDelta, v));
@@ -200,13 +224,13 @@ var DragScroll=Class.extend({
 	/** Scrolls child elements immediately by given delta within bounds of the container. Does not update mouse position or mouse delta.
 		@param velocity Vector containing the scroll delta */
 	onEndDrag: function(event) {
-		if(event !== undefined && event.type === "dragend" && event.gesture){
-			event.gesture.preventDefault();
+		if(event !== undefined && event.type === "panend"){
+			event.preventDefault();
 
-			var velocity = vec2.fromValues(event.gesture.velocityX, event.gesture.velocityY); // speed of travelled distance
+			var velocity = vec2.fromValues(event.velocityX, event.velocityY); // speed of travelled distance
 			//if smooth scolling is enabled and drag speed is high enough
 			if(this.getOption("smooth") && vec2.sqrLen(velocity) > 0.3){
-				var dragLength = vec2.fromValues(event.gesture.deltaX, event.gesture.deltaY);	//drag distance
+				var dragLength = vec2.fromValues(event.deltaX, event.deltaY);	//drag distance
 				var smoothDistance = vec2.create();
 				vec2.multiply(smoothDistance, dragLength, velocity);
 				var me=this;

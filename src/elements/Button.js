@@ -4,7 +4,10 @@ var Button = UIComponent.extend({
 		this.title = title;
 		this.callback = callback;
 		this.setTitle(title);
-		this.element.hammer().on("tap", ClassCallback(this, this.onClick));
+		var hammertime = new Hammer(this.element[0]);
+		if(hammertime){
+			hammertime.on("tap", ClassCallback(this, this.onClick));
+		}
 	},
 
 	setTitle: function(title){
@@ -14,7 +17,6 @@ var Button = UIComponent.extend({
 
 	onClick: function(event){
 		if(this.callback && typeof this.callback === "function"){
-			event.gesture.stopPropagation();
 			this.callback(event);
 		}
 	}

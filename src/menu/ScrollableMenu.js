@@ -1,7 +1,7 @@
 /** Creates menu where items are scrollable
 	@param element JQuery element
 	@param language Currently used language */
-var ScrollableMenu=Menu.extend({
+var ScrollableMenu = Menu.extend({
 	init: function(element) {
 		this.viewElement = element;
 		this.viewElement.addClass("scrollable-view");
@@ -14,7 +14,7 @@ var ScrollableMenu=Menu.extend({
 		}
 		this._super(this.contentElement);
 		// Attach scrolling capability to parent element
-		this.dragScroll=new DragScroll(this.viewElement, this.contentElement);
+		this.dragScroll = new DragScroll(this.viewElement, this.contentElement);
 	},
 
 	addScrollbar: function(){

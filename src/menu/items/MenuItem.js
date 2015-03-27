@@ -4,10 +4,10 @@
 */
 var MenuItem = UIComponent.extend({
 	init: function(label) {
+		this._super(false);
 		this.label=label;
 		this.callback = false;
 		this.dataObject = false;
-		this.element = false;
 		this.createElement();
 	},
 

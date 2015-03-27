@@ -21,7 +21,7 @@ var Scrollbar = UIComponent.extend({
 		this.bar = $("<div class='bar'></div>");
 		this.element.append(this.bar);
 		parentElement.append(this.element);
-		
+
 		this._super(this.element);
 
 		this.element.on('selectstart', false);
@@ -34,7 +34,7 @@ var Scrollbar = UIComponent.extend({
 		this.element.hammer().on("dragstart", ClassCallback(this, this.onStartDrag));
 		//this.element.hammer().on("tap", ClassCallback(this, this.onTap));
 
-		this.view = new View(vec2.fromValues(this.bar.width(), this.bar.height()), 
+		this.view = new View(vec2.fromValues(this.bar.width(), this.bar.height()),
  											 vec2.fromValues(this.element.innerWidth(), this.element.innerHeight()));
 	},
 
@@ -110,18 +110,17 @@ var Scrollbar = UIComponent.extend({
 
 	onStartDrag: function(event){
 		if(event && event.gesture){
-			event.gesture.preventDefault();	
+			event.gesture.preventDefault();
 			event.gesture.stopPropagation();
 		}
 	},
 
 	onDrag: function(event) {
 		if(!(event && event.gesture)){
-			return;	
+			return;
 		}
 
-		event.gesture.preventDefault();	
-		event.gesture.stopPropagation();
+		event.preventDefault();
 		var v = vec2.fromValues(event.gesture.deltaX, event.gesture.deltaY);
 		this.view.move(vec2.negate(vec2.create(), vec2.sub(vec2.create(), this.mouseDelta, v)));
 		this.mouseDelta = v;
@@ -133,13 +132,12 @@ var Scrollbar = UIComponent.extend({
 
 	onTap: function(event){
 		if(!(event && event.gesture)){
-			return;	
+			return;
 		}
 
-		event.gesture.preventDefault();	
-		event.gesture.stopPropagation();
+		event.preventDefault();
 
-		var v = vec2.fromValues(event.gesture.deltaX, event.gesture.deltaY);		
+		var v = vec2.fromValues(event.gesture.deltaX, event.gesture.deltaY);
 	},
 
 	getPercentage: function(){

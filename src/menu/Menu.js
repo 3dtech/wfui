@@ -4,11 +4,18 @@
 	@param language Current language (needed only, if menuitem labels are of Translations type) */
 var Menu = UIComponent.extend({
 	init: function(element) {
-		this.element=element;
-		this.element.addClass("no-select");
-		this.items=[];
+		this._super(element);
+
+		if(this.element){
+			this.element.addClass("no-select");
+		}
+		else {
+			console.error("Menu: No element given!");
+		}
+
+		this.items = [];
 		this.cache = [];
-		this.active=false;				///< Currently active item, if any
+		this._active = false; ///< Currently active item, if any
 	},
 
 	/** Adds new menu item */
@@ -45,26 +52,40 @@ var Menu = UIComponent.extend({
 
 	addCallback: function(item){
 		var me=this;
-		if(item.element && item.element.hammer){
-				item.element.hammer().on("tap", function(event) {
-				event.gesture.stopPropagation();
-				event.gesture.preventDefault();
-				me.activateItem(item);
-				//Trigger custom callback or the default click function
-				if(item.callback && typeof item.callback === "function"){
-					item.callback(item);
+		var hammertime = new Hammer(item.element[0], {domEvents: true});
+
+		if(item.element && hammertime){
+			hammertime.on("tap", function(event) {
+				if(event.target == item.element[0] || event.target.parentNode == item.element[0]){
+					event.preventDefault();
+
+					function activate(){
+						if(item.callback && typeof item.callback === "function"){
+							item.callback(item);
+						}
+
+						me.onItemClick(item, event);
+
+						me.activateItem(item);
+						item.onClick();
+					}
+
+					if(item !== me._active){
+						activate();
+					}
+					else {
+						//the item is already active wait until we can paint again.
+						cancelAnimationFrame(this.activateFrame);
+						this.activateFrame = requestAnimFrame(activate);
+					}
 				}
-
-				me.onItemClick(item, event);
-
-				item.onClick();
 			});
 
-			item.element.hammer().on("touchstart", function(){
+			hammertime.on("touchstart", function(){
 				item.element.addClass("tapped");
 			});
 
-			item.element.hammer().on("touchend", function(){
+			hammertime.on("touchend", function(){
 				item.element.removeClass("tapped");
 			});
 		}
@@ -73,17 +94,17 @@ var Menu = UIComponent.extend({
 	/** Activates given menuitem (make sure that it is a menuitem belonging to this menu, not some random dude) */
 	activateItem: function(item) {
 		this.deactivateAll(item);
-		this.active=item;
-		if(this.active) {
-			this.active.activate(this);
+		this._active=item;
+		if(this._active) {
+			this._active.activate(this);
 		}
 	},
 
 	/** Deactivates item, if there is an active item */
 	deactivateAll: function(item) {
-		if(this.active && this.active !== item){
-			this.active.deactivate(this);
-			this.active = false;
+		if(this._active && this._active !== item){
+			this._active.deactivate(this);
+			this._active = false;
 		}
 	},
 
@@ -113,7 +134,7 @@ var Menu = UIComponent.extend({
 
 	/** Clears menu */
 	clear: function() {
-		this.active = false;
+		this._active = false;
 
 		for(var item in this.items) {
 			this.items[item].remove(this);
