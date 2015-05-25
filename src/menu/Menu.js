@@ -68,6 +68,7 @@ var Menu = UIComponent.extend({
 
 						me.activateItem(item);
 						item.onClick();
+						me.onItemActivated(item);
 					}
 
 					if(item !== me._active){
@@ -146,6 +147,10 @@ var Menu = UIComponent.extend({
 	/** Called when new language is set */
 	onSetLanguage: function(language) {
 		this.resize();
+	},
+
+	onItemActivated: function (item) {
+		// body...
 	},
 
 	/** Called when menu must be sorted */
