@@ -1,4 +1,4 @@
-var version = "1.0.4";
+var version = "1.0.5";
 var fs = require('fs');
 var sys = require('sys');
 var exec = require('child_process').exec;

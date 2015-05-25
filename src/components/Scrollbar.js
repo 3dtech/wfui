@@ -22,6 +22,8 @@ var Scrollbar = UIComponent.extend({
 		this.element.append(this.bar);
 		parentElement.append(this.element);
 
+		this.transformsSupported = this.isTransformSupported();
+
 		this._super(this.element);
 
 		this.element.on('selectstart', false);
@@ -29,9 +31,10 @@ var Scrollbar = UIComponent.extend({
 
 		this.mouseDelta=vec2.create();
 
-		this.element.hammer().on("drag", ClassCallback(this, this.onDrag));
-		this.element.hammer().on("dragend", ClassCallback(this, this.onEndDrag));
-		this.element.hammer().on("dragstart", ClassCallback(this, this.onStartDrag));
+		var hammer = new Hammer(this.element[0]);
+		hammer.on("drag", ClassCallback(this, this.onDrag));
+		hammer.on("dragend", ClassCallback(this, this.onEndDrag));
+		hammer.on("dragstart", ClassCallback(this, this.onStartDrag));
 		//this.element.hammer().on("tap", ClassCallback(this, this.onTap));
 
 		this.view = new View(vec2.fromValues(this.bar.width(), this.bar.height()),
@@ -89,8 +92,8 @@ var Scrollbar = UIComponent.extend({
 	},
 
 	setPosition: function(newPos){
-		if(Modernizr.csstransforms){//this will be rendered on GPU, faster
-			this.bar.css(Modernizr.prefixed("transform"), "translate("+newPos[0]+"px,"+newPos[1]+"px)");
+		if(this.transformsSupported){//this will be rendered on GPU, faster
+			this.bar.css(this.transformsSupported+"transform", "translate("+newPos[0]+"px,"+newPos[1]+"px)");
 		}
 		else
 			this.bar.css("left", newPos[0]+"px").css("top", newPos[1]+"px");
@@ -159,5 +162,17 @@ var Scrollbar = UIComponent.extend({
 		else {
 			this.show();
 		}
+	},
+
+	isTransformSupported: function() {
+		var styles = ['transform', 'WebkitTransform', 'MozTransform', 'OTransform', 'msTransform'];
+		var prefixes = ['', '-webkit-', '-moz-', '-o-', '-ms-'];
+		for(var i = 0; i < styles.length; i++) {
+			if(document.createElement('div').style[styles[i]] !== undefined) {
+				return prefixes[i];
+			}
+		}
+		return false;
 	}
+
 });
