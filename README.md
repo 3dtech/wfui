@@ -20,7 +20,7 @@ Include the Library and Your code in the html file head
 Start the application:
 
 ```var gui;
-$(function(){
+$wfuij(function(){
 	gui = new MyUserInterface();
 });```
 
@@ -34,4 +34,4 @@ node build.js debug
 
 Notes
 --------
-WFUI uses jQuery noConflict mode and uses $wfui as the jQuery shortcut
+WFUI uses jQuery noConflict mode and uses $wfuij as the jQuery shortcut
