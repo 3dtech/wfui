@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>WFUI basic test</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<div id="container">
+			<div id="menu">
+
+				<!-- Menu tabs -->
+				
+			</div>
+		</div>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>	
+		<script src="../builds/WFUI.latest.min.js"></script>	
+
+		<script type="text/javascript">
+			var gui;
+			$wfuij(function(){
+				gui = new UserInterface();
+				
+				gui.setup = function(){
+					console.log("my setup");
+				}
+
+				gui.start();
+			});	
+		</script>
+	</body>
+</html>
