@@ -19,9 +19,9 @@ var ImageMenuItem = MenuItem.extend({
 	},
 
 	createElement: function(){
-		this.element = $("<div class='item imageitem'></div>");
-		this.iconElement = $("<div class='icon'></div>");
-		this.textElement = $("<div class='label'>"+this.label+"</div>");
+		this.element = $wfuij("<div class='item imageitem'></div>");
+		this.iconElement = $wfuij("<div class='icon'></div>");
+		this.textElement = $wfuij("<div class='label'>"+this.label+"</div>");
 		this.element.append(this.iconElement);
 		this.element.append(this.textElement);
 		this.element.bind("touchmove", function(event) { event.preventDefault(); });

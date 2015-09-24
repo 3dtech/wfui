@@ -13,19 +13,19 @@ var ValueMenuItem = MenuItem.extend({
 	createElement: function(){
 		var e = document.createElement('div');
 		e.className = 'item '+this.label;
-		this.element=$(e);
+		this.element=$wfuij(e);
 
 		var ne = document.createElement('div');
 		ne.setAttribute("name", 'name');
 		ne.innerHTML = this.label;
 
-		this.nameElement = $(ne);
+		this.nameElement = $wfuij(ne);
 
 		var ve = document.createElement('div');
 		ve.setAttribute("name", 'value');
 		ve.innerHTML = this.value;
 
-		this.valueElement = $(ve);
+		this.valueElement = $wfuij(ve);
 
 		this.element.append([this.nameElement, this.valueElement]);
 		this.element.bind("touchmove", function(event) { event.preventDefault(); });

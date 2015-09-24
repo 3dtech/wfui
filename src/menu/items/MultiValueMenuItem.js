@@ -22,14 +22,14 @@ var MultiValueMenuItem = MenuItem.extend({
 	createElement: function(){
 		var me = document.createElement('div');
 		me.className = 'item multivalueitem';
-		this.element = $(me);
+		this.element = $wfuij(me);
 		var e = null;
 
 		for(var i in this.values){
 			e = document.createElement('div');
 			e.className = 'val-'+i;
 			e.innerHTML = this.values[i];
-			this.element.append($(e));
+			this.element.append($wfuij(e));
 			this.elements.push(e);
 		}
 

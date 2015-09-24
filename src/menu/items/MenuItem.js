@@ -35,7 +35,7 @@ var MenuItem = UIComponent.extend({
 		var e = document.createElement('div');
 		e.className = 'item';
 		e.innerHTML = this.label;
-		this.element=$(e);
+		this.element=$wfuij(e);
 		this.element.on("touchmove", function(event) { event.preventDefault(); });
 		this.element.on('selectstart', false);
 	},

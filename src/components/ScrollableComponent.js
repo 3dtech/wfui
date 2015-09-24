@@ -9,7 +9,7 @@ var ScrollableComponent = UIComponent.extend({
 		
 		this.contentElement=this.viewElement.find(".scrollable-content");
 		if(!this.contentElement[0]){
-			this.contentElement=$("<div class='scrollable-content no-select'></div>");
+			this.contentElement=$wfuij("<div class='scrollable-content no-select'></div>");
 			this.viewElement.append(this.contentElement);
 		}
 		this._super(this.contentElement);

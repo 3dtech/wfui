@@ -19,28 +19,31 @@ var SubMenuItem = MenuItem.extend({
 	createElement: function(){
 		var e = document.createElement('div');
 		e.className = 'submenuitem item';
-		this.element=$(e);
+		this.element=$wfuij(e);
 
 		var ne = document.createElement('div');
 		ne.className = "label";
 		ne.innerHTML = this.label;
 
-		this.nameElement = $(ne);
+		this.nameElement = $wfuij(ne);
 
 		var me = document.createElement('div');
 		me.className = "submenu menu";
 
-		this.menuElement = $(me);
+		this.menuElement = $wfuij(me);
 
 		this.element.append([this.nameElement, this.menuElement]);
 		this.element.bind("touchmove", function(event) { event.preventDefault(); });
 	},
 
 	onActivate: function(){
-		console.log("onActivate", this.label, this.menu.isActive(), this.menu);
 		if(this.menu && !this.menu.isActive()){
 			this.menu.show();
 			this.menu.activate();
+			if(typeof this.menu.onItemActivated === "function"){
+				this.menu.onItemActivated(this);
+			}
+				
 		}
 		else {
 			this.menu.hide();

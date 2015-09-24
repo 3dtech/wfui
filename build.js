@@ -1,9 +1,11 @@
-var version = "1.0.5";
+var version = "1.1.0";
 var fs = require('fs');
 var sys = require('sys');
 var exec = require('child_process').exec;
 
 var outputFile = "builds/WFUI."+version+".min.js";
+var outputLatest = "builds/WFUI.latest.min.js";
+
 var files = [
 	"libs/classExtend.js",
 	"libs/vec2.js",
@@ -40,10 +42,13 @@ function output(error, stdout, stderr) {
 	}
 }
 
-var command="uglifyjs -m -c -o "+outputFile+" --stats ";
+var command = "uglifyjs -m -c -o "+outputFile+" --stats ";
+var commandLatest = "uglifyjs -m -c -o "+outputLatest+" --stats ";
+
 if(process.argv.length>=3 && process.argv[2]=='debug') {
 	command="uglifyjs -b -o "+outputFile+" --stats ";
 	console.log('WARNING: Building DEBUG build of library.');
 }
 
 exec(command+files.join(' '), output);
+exec(commandLatest+files.join(' '), output);

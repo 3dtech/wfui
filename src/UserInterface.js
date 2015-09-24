@@ -1,14 +1,15 @@
+var $wfuij = jQuery.noConflict();
+
 /** Default UserInterface class that other UserInterface's extend */
-var UserInterface=Class.extend({
-	init: function(wayfinder) {
+var UserInterface = Class.extend({
+	init: function() {
 		this.elements = {}; //Store oftenly used elements here
 		this.history = new History();
 		this.maxInactivityTime = 30000;
 		this.lastTouch = (new Date()).getTime();
-		$(window).resize(ClassCallback(this, this.resize));
+		$wfuij(window).resize(ClassCallback(this, this.resize));
 	},
 
-	/** Called when wayfinder data has been loaded */
 	start: function() {
 		this.setup();
 		this.resize();
@@ -25,12 +26,12 @@ var UserInterface=Class.extend({
 	setupLanguage: function(){
 		//var language = this.wayfinder.getLanguage();
 		if(language && this.wayfinder.languages[language]){
-			$("body").removeClass("rtl");
-			$("body").removeClass (function (index, css) {
+			$wfuij("body").removeClass("rtl");
+			$wfuij("body").removeClass (function (index, css) {
 				return (css.match (/(^|\s)language_\S+/g) || []).join(' ');
 			});
-			$("body").addClass("language_"+this.wayfinder.languages[language].getName());
-			$("body").addClass(this.wayfinder.languages[language].getTextDirection());
+			$wfuij("body").addClass("language_"+this.wayfinder.languages[language].getName());
+			$wfuij("body").addClass(this.wayfinder.languages[language].getTextDirection());
 		}
 	},
 
@@ -46,8 +47,8 @@ var UserInterface=Class.extend({
 			me.hideScreensaver();
 		}
 
-		$('body').mousedown(trigger);
-		$("body").hammer().on('touch', trigger);
+		$wfuij('body').mousedown(trigger);
+		$wfuij("body").hammer().on('touch', trigger);
 
 		var checker = function(){
 			var time = (new Date()).getTime();
@@ -80,13 +81,13 @@ var UserInterface=Class.extend({
 
 	showScreensaver: function(){
 		if (!this.wayfinder.screensaving) {
-			$("#screensaver").show(100);
+			$wfuij("#screensaver").show(100);
 		}
 	},
 
 	hideScreensaver: function(){
 		if (this.wayfinder.screensaving) {
-			$("#screensaver").hide(100);
+			$wfuij("#screensaver").hide(100);
 			this.lastTouch = (new Date()).getTime();
 		}
 	},

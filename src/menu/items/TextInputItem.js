@@ -14,8 +14,8 @@ var TextInputItem = MenuItem.extend({
 	},
 	
 	createElement: function(){
-		this.element=$("<div class='item searchitem'></div>");
-		this.input=$("<input type='text' data-label='"+this.label+"'/>");
+		this.element=$wfuij("<div class='item searchitem'></div>");
+		this.input=$wfuij("<input type='text' data-label='"+this.label+"'/>");
 		this.element.append(this.input);
 	},
 	

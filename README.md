@@ -31,3 +31,7 @@ node build.js
 
 For debugging purposes call
 node build.js debug
+
+Notes
+--------
+WFUI uses jQuery noConflict mode and uses $wfui as the jQuery shortcut

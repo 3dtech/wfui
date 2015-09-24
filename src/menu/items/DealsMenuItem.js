@@ -12,10 +12,10 @@ var DealsMenuItem = MenuItem.extend({
 	},
 	
 	createElement: function(){
-		this.element=$("<div class='deal'></div>");
-		this.image=$("<div class='image' name='image'></div>");
-		this.slogan=$("<div class='slogan' name='slogan'></div>");
-		this.poi=$("<div class='poi' name='poi'></div>");
+		this.element=$wfuij("<div class='deal'></div>");
+		this.image=$wfuij("<div class='image' name='image'></div>");
+		this.slogan=$wfuij("<div class='slogan' name='slogan'></div>");
+		this.poi=$wfuij("<div class='poi' name='poi'></div>");
 		this.element.append(this.image).append(this.slogan).append(this.poi);
 	},
 	

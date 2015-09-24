@@ -16,7 +16,7 @@ var UserMessage = Class.extend({
 	},
 	
 	draw: function(){
-		this.element = $("<div class='message "+this.type+"'></div>");
+		this.element = $wfuij("<div class='message "+this.type+"'></div>");
 		var cur_lang = this.wayfinder.translator.getLanguage();
 		//lets add a translation if possible
 		this.wayfinder.translator.translateElement(this.element, this.key);

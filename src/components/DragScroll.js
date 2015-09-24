@@ -45,7 +45,7 @@ var DragScroll=Class.extend({
 
 		var me=this;
 
-		$(window).resize(function() { me.resize(); });
+		$wfuij(window).resize(function() { me.resize(); });
 
 		var hammer = new Hammer(this.viewElement[0]);
 		hammer.get('pan').set({ threshold: 0, pointers: 0 });

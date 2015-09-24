@@ -17,8 +17,8 @@ var Scrollbar = UIComponent.extend({
 
 		//Create the actual scrollbar
 		this.parentElement = parentElement;
-		this.element=$("<div class='scrollbar "+position+"'></div>");
-		this.bar = $("<div class='bar'></div>");
+		this.element=$wfuij("<div class='scrollbar "+position+"'></div>");
+		this.bar = $wfuij("<div class='bar'></div>");
 		this.element.append(this.bar);
 		parentElement.append(this.element);
 
@@ -32,9 +32,11 @@ var Scrollbar = UIComponent.extend({
 		this.mouseDelta=vec2.create();
 
 		var hammer = new Hammer(this.element[0]);
-		hammer.on("drag", ClassCallback(this, this.onDrag));
-		hammer.on("dragend", ClassCallback(this, this.onEndDrag));
-		hammer.on("dragstart", ClassCallback(this, this.onStartDrag));
+		hammer.get('pan').set({ threshold: 0, pointers: 0 });
+
+		hammer.on("pan", ClassCallback(this, this.onDrag));
+		hammer.on("panend", ClassCallback(this, this.onEndDrag));
+		hammer.on("panstart", ClassCallback(this, this.onStartDrag));
 		//this.element.hammer().on("tap", ClassCallback(this, this.onTap));
 
 		this.view = new View(vec2.fromValues(this.bar.width(), this.bar.height()),
@@ -112,19 +114,18 @@ var Scrollbar = UIComponent.extend({
 	},
 
 	onStartDrag: function(event){
-		if(event && event.gesture){
-			event.gesture.preventDefault();
-			event.gesture.stopPropagation();
+		if(event){
+			event.preventDefault();
 		}
 	},
 
 	onDrag: function(event) {
-		if(!(event && event.gesture)){
+		if(!(event)){
 			return;
 		}
 
 		event.preventDefault();
-		var v = vec2.fromValues(event.gesture.deltaX, event.gesture.deltaY);
+		var v = vec2.fromValues(event.deltaX, event.deltaY);
 		this.view.move(vec2.negate(vec2.create(), vec2.sub(vec2.create(), this.mouseDelta, v)));
 		this.mouseDelta = v;
 		this.setPosition(this.view.getContentPosition());
@@ -134,13 +135,13 @@ var Scrollbar = UIComponent.extend({
 	},
 
 	onTap: function(event){
-		if(!(event && event.gesture)){
+		if(!(event && event)){
 			return;
 		}
 
 		event.preventDefault();
 
-		var v = vec2.fromValues(event.gesture.deltaX, event.gesture.deltaY);
+		var v = vec2.fromValues(event.deltaX, event.deltaY);
 	},
 
 	getPercentage: function(){

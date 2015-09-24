@@ -8,8 +8,8 @@ var BulletItem = MenuItem.extend({
 	},
 
 	createElement: function(){
-		this.element=$("<div class='item bullet "+this.label+"'>"+this.label+"</div>");
-		this.bullet = $("<div class='bullet'></div>");
+		this.element=$wfuij("<div class='item bullet "+this.label+"'>"+this.label+"</div>");
+		this.bullet = $wfuij("<div class='bullet'></div>");
 		this.element.prepend(this.bullet);
 		this.element.bind("touchmove", function(event) { event.preventDefault(); });
 	},
