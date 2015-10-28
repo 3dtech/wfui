@@ -1,13 +1,13 @@
 var $wfuij = jQuery.noConflict();
 
 /** Default UserInterface class that other UserInterface's extend */
-var UserInterface = Class.extend({
+var UserInterface = ClassWFUI.extend({
 	init: function() {
 		this.elements = {}; //Store oftenly used elements here
 		this.history = new History();
 		this.maxInactivityTime = 30000;
 		this.lastTouch = (new Date()).getTime();
-		$wfuij(window).resize(ClassCallback(this, this.resize));
+		$wfuij(window).resize(WFUICallback(this, this.resize));
 	},
 
 	start: function() {

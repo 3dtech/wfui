@@ -34,10 +34,10 @@ var Scrollbar = UIComponent.extend({
 		var hammer = new Hammer(this.element[0]);
 		hammer.get('pan').set({ threshold: 0, pointers: 0 });
 
-		hammer.on("pan", ClassCallback(this, this.onDrag));
-		hammer.on("panend", ClassCallback(this, this.onEndDrag));
-		hammer.on("panstart", ClassCallback(this, this.onStartDrag));
-		//this.element.hammer().on("tap", ClassCallback(this, this.onTap));
+		hammer.on("pan", WFUICallback(this, this.onDrag));
+		hammer.on("panend", WFUICallback(this, this.onEndDrag));
+		hammer.on("panstart", WFUICallback(this, this.onStartDrag));
+		//this.element.hammer().on("tap", WFUICallback(this, this.onTap));
 
 		this.view = new View(vec2.fromValues(this.bar.width(), this.bar.height()),
  											 vec2.fromValues(this.element.innerWidth(), this.element.innerHeight()));

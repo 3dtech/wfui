@@ -21,8 +21,8 @@ var ScrollableComponent = UIComponent.extend({
 		this.scrollbar = new Scrollbar(this.viewElement, "right");
 		this.scrollbar.setup(parseInt(this.viewElement.height()), parseInt(this.contentElement.height()));
 		this.viewElement.addClass("hasScrollbar");
-		this.dragScroll.setUpdateCallback(ClassCallback(this, this.updateScrollbar));
-		this.scrollbar.onScroll = ClassCallback(this, this.updateScrollContainer);
+		this.dragScroll.setUpdateCallback(WFUICallback(this, this.updateScrollbar));
+		this.scrollbar.onScroll = WFUICallback(this, this.updateScrollContainer);
 	},
 
 	updateScrollbar: function(dragScroll){

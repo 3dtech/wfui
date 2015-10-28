@@ -2,7 +2,7 @@
 	It does not bind itself to any elements.
 	@param contentSize Width and height of content as Vector
 	@param viewSize Width and height of view as Vector */
-var View=Class.extend({
+var View=ClassWFUI.extend({
 	init: function(contentSize, viewSize) {
 		this.position=vec2.create(); ///< Current view position
 

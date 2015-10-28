@@ -24,7 +24,7 @@ var DealsMenuItem = MenuItem.extend({
 		var apiLocation = this.wayfinder.options.apiLocation;
 
 		if(ad.image_id > 0)
-			Logistics.getImage(apiLocation+"?class=PublicImages&method=getImage&parameters=["+ad.image_id+"]&echo_out=true", ClassCallback(this, this.setImage));
+			Logistics.getImage(apiLocation+"?class=PublicImages&method=getImage&parameters=["+ad.image_id+"]&echo_out=true", WFUICallback(this, this.setImage));
 		else
 			this.image.hide();
 			

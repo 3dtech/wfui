@@ -1,7 +1,7 @@
 /** UIComponent class is used as a baseclass for any User Interface (UI) component.
 	@param element JQuery element that is used as a slide of this tab */
 
-var UIComponent = Class.extend({
+var UIComponent = ClassWFUI.extend({
 	init: function(element) {
 		this.element = element;
 		this.parent = null;

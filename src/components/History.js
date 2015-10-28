@@ -1,5 +1,5 @@
 /** History for back and forward movement */
-var History = Class.extend({
+var History = ClassWFUI.extend({
 	init: function() {
 		this.setup();
 		this.states = [];
@@ -7,7 +7,7 @@ var History = Class.extend({
 	
 	setup: function(){
 		// When Back or Forward button is clicked this function is called
-		window.onpopstate = ClassCallback(this, this.back);
+		window.onpopstate = WFUICallback(this, this.back);
 	},
 	
 	/** Adds a new tab to tabs list. Calls onAdd method of added tab */

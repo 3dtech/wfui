@@ -1,5 +1,5 @@
 /** History for hierachical back movement */
-var HistoryTree = Class.extend({
+var HistoryTree = ClassWFUI.extend({
 	init: function() {
 		this.setup();
 		this.states = {};
@@ -10,7 +10,7 @@ var HistoryTree = Class.extend({
 	
 	setup: function(){
 		// When Back or Forward button is clicked this function is called
-		window.onpopstate = ClassCallback(this, this.back);
+		window.onpopstate = WFUICallback(this, this.back);
 	},
 
 	setRootState: function(callback, args){

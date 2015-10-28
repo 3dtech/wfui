@@ -1,5 +1,5 @@
 /** Tab class is used to hold tab information such as the button and content element. */
-var Tab = Class.extend({
+var Tab = ClassWFUI.extend({
 	/** Initializes tabs class */
 	init: function(name, panel, button) {
 		this.name = name;

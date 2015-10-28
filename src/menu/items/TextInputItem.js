@@ -20,9 +20,9 @@ var TextInputItem = MenuItem.extend({
 	},
 	
 	onAdd: function(menu){
-		this.input.keyup(ClassCallback(this, this.onChange));
-		//this.input.change(ClassCallback(this, this.onChange));
-		//this.input.blur(ClassCallback(this, this.onDeactivate));
+		this.input.keyup(WFUICallback(this, this.onChange));
+		//this.input.change(WFUICallback(this, this.onChange));
+		//this.input.blur(WFUICallback(this, this.onDeactivate));
 	},
 	
 	onClick: function(){
@@ -46,7 +46,7 @@ var TextInputItem = MenuItem.extend({
 		this.isDefaultValue = false;
 		if(this.lastKeyPress && this.lastKeyPress - time > -this.wait){
 			clearTimeout(this.timeout);
-			this.timeout = setTimeout(ClassCallback(this, this.checkLastKeyPress), this.wait);
+			this.timeout = setTimeout(WFUICallback(this, this.checkLastKeyPress), this.wait);
 		}
 		else if(this.lastKeyPress > 0) {
 			this.lastKeyPress = -1;
@@ -59,7 +59,7 @@ var TextInputItem = MenuItem.extend({
 		var time = (new Date()).getTime();
 		//Start checking if last key press was too long ago
 		clearTimeout(this.timeout);
-		this.timeout = setTimeout(ClassCallback(this, this.checkLastKeyPress), this.wait);
+		this.timeout = setTimeout(WFUICallback(this, this.checkLastKeyPress), this.wait);
 		
 		this.lastKeyPress = time;
 	},

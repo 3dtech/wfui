@@ -1,4 +1,4 @@
-var UserMessage = Class.extend({
+var UserMessage = ClassWFUI.extend({
 	/** 
 		Message displayes messages for users 
 		@param key responds to guiTranslations
@@ -21,8 +21,8 @@ var UserMessage = Class.extend({
 		//lets add a translation if possible
 		this.wayfinder.translator.translateElement(this.element, this.key);
 			
-		this.element.hammer().on("tap", ClassCallback(this, this.onClick));
-		setTimeout(ClassCallback(this, this.close), this.timeout);
+		this.element.hammer().on("tap", WFUICallback(this, this.onClick));
+		setTimeout(WFUICallback(this, this.close), this.timeout);
 		this.wayfinder.options.messages.append(this.element);
 	},
 	

@@ -4,7 +4,7 @@
 	@param contentElement JQuery element that will act as scrollable content
 	@param options - set different options - optional
 */
-var DragScroll=Class.extend({
+var DragScroll=ClassWFUI.extend({
 	init: function(viewElement, contentElement, options) {
 		this.options = {
 			"smooth": true, //set if the end of drag has a fade out animation
@@ -63,9 +63,9 @@ var DragScroll=Class.extend({
 			event.preventDefault();
 		});
 
-		hammer.on("panmove", ClassCallback(this, this.onDrag));
+		hammer.on("panmove", WFUICallback(this, this.onDrag));
 
-		hammer.on("panend", ClassCallback(this, this.onEndDrag));
+		hammer.on("panend", WFUICallback(this, this.onEndDrag));
 
 		this.viewElement.bind("mousewheel", function(event, delta) {
 			me.scroll(vec2.fromValues(0, -me.getOption("wheelSpeed")*delta));

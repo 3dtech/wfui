@@ -3,17 +3,17 @@
  * MIT Licensed.
  */
 
- var Class = function(){};
+ var ClassWFUI = function(){};
  
 // Inspired by base2 and Prototype
 (function(){
   var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
 
   // The base Class implementation (does nothing)
-  this.Class = function(){};
+  this.ClassWFUI = function(){};
  
   // Create a new Class that inherits from this class
-  Class.extend = function(prop) {
+  ClassWFUI.extend = function(prop) {
     var _super = this.prototype;
    
     // Instantiate a base class (but only create the instance,
@@ -47,27 +47,27 @@
     }
    
     // The dummy class constructor
-    function Class() {
+    function ClassWFUI() {
       // All construction is actually done in the init method
       if ( !initializing && this.init )
         this.init.apply(this, arguments);
     }
    
     // Populate our constructed prototype object
-    Class.prototype = prototype;
+    ClassWFUI.prototype = prototype;
    
     // Enforce the constructor to be what we expect
-    Class.prototype.constructor = Class;
+    ClassWFUI.prototype.constructor = ClassWFUI;
 
     // And make this class extendable
-    Class.extend = arguments.callee;
+    ClassWFUI.extend = arguments.callee;
    
-    return Class;
+    return ClassWFUI;
   };
 })();
 
-function ClassCallback(classScope, fnCallback) {
+function WFUICallback(classScope, fnCallback) {
 	return function() { return fnCallback.apply(classScope, arguments); };
 }
 
-var Callback = ClassCallback;
+var Callback = WFUICallback;

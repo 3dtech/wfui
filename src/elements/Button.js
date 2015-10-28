@@ -6,7 +6,7 @@ var Button = UIComponent.extend({
 		this.setTitle(title);
 		var hammertime = new Hammer(this.element[0]);
 		if(hammertime){
-			hammertime.on("tap", ClassCallback(this, this.onClick));
+			hammertime.on("tap", WFUICallback(this, this.onClick));
 		}
 	},
 
